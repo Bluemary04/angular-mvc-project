@@ -4,19 +4,25 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Routing;
 using AngularMVCProject.Models;
 
 namespace AngularMVCProject.Controllers
 {
+
+    [Authorize]
+    [RoutePrefix("api/persona")]
     public class PersonaController : ApiController
     {
+
         // GET: api/Persona
-        public IEnumerable<string> Get()
+        public IEnumerable<Persona> Get()
         {
-            return new string[] { "value1", "value2" };
+            GestorPersonas gPersona = new GestorPersonas();
+            return gPersona.ObtenerPersonas();
         }
 
-        // GET: api/Persona/5
+
         public Persona Get(int id)
         {
             GestorPersonas gPersona = new GestorPersonas();
@@ -24,12 +30,12 @@ namespace AngularMVCProject.Controllers
         }
 
         // POST: api/Persona
-        public void Post([FromBody]string value)
+        public void Post([FromBody] string value)
         {
         }
 
         // PUT: api/Persona/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 

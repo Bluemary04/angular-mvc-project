@@ -39,14 +39,15 @@ namespace AngularMVCProject.Models
                 conn.Open();
 
                 SqlCommand comm = conn.CreateCommand();
-                comm.CommandText = "SELECT * FROM Persona";
+                comm.CommandText = "obtener_personas";
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
 
                 SqlDataReader dr = comm.ExecuteReader();
                 while (dr.Read())
                 {
                     int id = dr.GetInt32(0);
-                    string nombre = dr.GetString(1);
-                    string apellido = dr.GetString(2);
+                    string nombre = dr.GetString(1).Trim();
+                    string apellido = dr.GetString(2).Trim();
 
                     Persona p = new Persona(id, nombre, apellido);
                     lista.Add(p);
@@ -66,7 +67,7 @@ namespace AngularMVCProject.Models
             {
                 conn.Open();
 
-                SqlCommand comm = new SqlCommand("obtener_persona", conn);
+                SqlCommand comm = new SqlCommand("eliminar_persona", conn);
                 comm.CommandType = System.Data.CommandType.StoredProcedure;
                 comm.Parameters.Add(new SqlParameter("@Id", id));
 
@@ -84,9 +85,9 @@ namespace AngularMVCProject.Models
             { 
                 conn.Open();
 
-                SqlCommand comm = conn.CreateCommand();
-                comm.CommandText = "SELECT * FROM Persona WHERE id=@Id";
-                comm.Parameters.Add(new SqlParameter("@Id", id));
+                SqlCommand comm = new SqlCommand("obtener_persona", conn);
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
+                comm.Parameters.Add(new SqlParameter("@id", id));
 
                 SqlDataReader dr = comm.ExecuteReader();
                 if (dr.Read())
