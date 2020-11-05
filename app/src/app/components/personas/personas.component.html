@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <a [href]="angular">Hoy aprendemos Angular</a>
+    <br>
+    <button class="btn btn-info mt-3" (click)="nuevaPersona()">Nueva Persona</button>
+    <table class="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Nombre</th>
+            <th>Gestión</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let persona of personas">
+                <td>{{persona.Id}}</td>
+                <td>{{persona.Apellido}}</td>
+                <td>{{persona.Nombre}}</td>
+                <td><button class="btn btn-danger">Eliminar</button></td>
+            </tr>
+        </tbody>
+      </table>
+</div>

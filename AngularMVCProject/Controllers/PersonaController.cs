@@ -10,7 +10,7 @@ using AngularMVCProject.Models;
 namespace AngularMVCProject.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     [RoutePrefix("api/persona")]
     public class PersonaController : ApiController
     {
