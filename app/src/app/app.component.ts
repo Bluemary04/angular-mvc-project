@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Persona} from './models/persona.model';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Programa Clip';
-
+  
 }

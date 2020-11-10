@@ -11,22 +11,24 @@ namespace AngularMVCProject.Models
     public class GestorPersonas
     {
        
-        public void AgregarPersona(Persona nueva)
+        public int AgregarPersona(Persona nueva)
         {
             string StrConn = ConfigurationManager.ConnectionStrings["BDLocal"].ToString();
+            int id=0;
 
             using (SqlConnection conn = new SqlConnection(StrConn))
             { 
                 conn.Open();
 
                 SqlCommand comm = conn.CreateCommand();
-                comm.CommandText = "INSERT INTO Persona(nombre, apellido) VALUES (@Nombre, @Apellido)";
+                comm.CommandText = "insertar_persona";
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
                 comm.Parameters.Add(new SqlParameter("@Nombre", nueva.Nombre));
                 comm.Parameters.Add(new SqlParameter("@Apellido", nueva.Apellido));
 
-                comm.ExecuteNonQuery();
-
+                id=Convert.ToInt32( comm.ExecuteScalar());
             }
+            return id;
         }
 
         public List<Persona> ObtenerPersonas()
@@ -114,13 +116,15 @@ namespace AngularMVCProject.Models
                 conn.Open();
 
                 SqlCommand comm = conn.CreateCommand();
-                comm.CommandText = "UPDATE Persona SET nombre=@Nombre, apellido=@Apellido WHERE id=@Id";
+                comm.CommandText = "modificar_persona";
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
                 comm.Parameters.Add(new SqlParameter("@Nombre", p.Nombre));
                 comm.Parameters.Add(new SqlParameter("@Apellido", p.Apellido));
                 comm.Parameters.Add(new SqlParameter("@Id", p.Id));
 
                 comm.ExecuteNonQuery();
-
+                
+                
             }
         }
     }

@@ -30,18 +30,29 @@ namespace AngularMVCProject.Controllers
         }
 
         // POST: api/Persona
-        public void Post([FromBody] string value)
+        public Persona Post(Persona persona)
         {
+            int id;
+            GestorPersonas gPersona = new GestorPersonas();
+            id=  gPersona.AgregarPersona(persona);
+            persona.Id = id;
+            return persona;
         }
 
-        // PUT: api/Persona/5
-        public void Put(int id, [FromBody] string value)
+        // PUT: api/Persona
+        public void Put(Persona persona)
         {
+            GestorPersonas gPersona = new GestorPersonas();
+            gPersona.ModificarPersona(persona);
+
         }
 
         // DELETE: api/Persona/5
         public void Delete(int id)
         {
+            GestorPersonas gPersona = new GestorPersonas();
+            gPersona.Eliminar(id);
+
         }
     }
 }

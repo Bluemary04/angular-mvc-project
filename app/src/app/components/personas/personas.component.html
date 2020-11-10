@@ -1,23 +1,40 @@
 <div class="container-fluid">
-    <a [href]="angular">Hoy aprendemos Angular</a>
-    <br>
-    <button class="btn btn-info mt-3" (click)="nuevaPersona()">Nueva Persona</button>
-    <table class="table table-striped mt-3">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Nombre</th>
-            <th>Gestión</th>
+  <a [href]="angular">Hoy aprendemos Angular</a>
+  <br>
+<div class="row">
+  <div class="col">
+    <table class="table mt-3 table-bordered table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Nombre</th>
+          <th>Gestión</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let persona of personas;"
+          (click)="onSelect(persona)">
+              <td>{{persona.Id}}</td>
+              <td>{{persona.Apellido}}</td>
+              <td>{{persona.Nombre}}</td>
+              <td><button (click)="onDelete(persona.Id)" class="btn btn-danger">Eliminar</button>
           </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let persona of personas">
-                <td>{{persona.Id}}</td>
-                <td>{{persona.Apellido}}</td>
-                <td>{{persona.Nombre}}</td>
-                <td><button class="btn btn-danger">Eliminar</button></td>
-            </tr>
-        </tbody>
-      </table>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <form >
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" [(ngModel)]="selectedPersona.Nombre" name="Nombre"   class="form-control" >
+      </div>
+      <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" [(ngModel)]="selectedPersona.Apellido"  name="Apellido" class="form-control"  >
+        </div>
+      <button class="btn btn-primary" (click)="onSubmit(selectedPersona)">Submit</button>
+    </form>
+  </div>
+</div>
 </div>

@@ -8,6 +8,9 @@ import {Persona} from '../models/persona.model';
 })
 export class PersonaService {
   url="https://localhost:44300/api/persona";
+  list : Persona[];
+ 
+
   constructor( private http:HttpClient) { 
     console.log("Persona service is running");
   }
@@ -16,5 +19,19 @@ export class PersonaService {
     let header=new HttpHeaders().set('Content-Type','application/json');
     return this.http.get<Persona[]>(this.url, {headers:header});
 
+  }
+
+  onDeletePersona(id:number):Observable<number>{
+    let header=new HttpHeaders().set('Content-Type','application/json');
+    return this.http.delete<number>(this.url + "/" + id, {headers:header});
+  }
+
+  onCreatePersona(persona:Persona):Observable<Persona>{
+    let header=new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post<Persona>(this.url, persona, {headers:header});
+  }
+  onUpdatePersona (persona:Persona): Observable<Persona>{
+    let header=new HttpHeaders().set('Content-Type','application/json');
+    return this.http.put<Persona>(this.url, persona, {headers:header});
   }
 }
