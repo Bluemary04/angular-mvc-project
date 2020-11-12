@@ -6,23 +6,24 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Routing;
 using AngularMVCProject.Models;
+using System.Web.Http.Cors;
 
 namespace AngularMVCProject.Controllers
 {
 
-    //[Authorize]
     [RoutePrefix("api/persona")]
     public class PersonaController : ApiController
     {
-
+        //[Authorize]
         // GET: api/Persona
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<Persona> Get()
         {
             GestorPersonas gPersona = new GestorPersonas();
             return gPersona.ObtenerPersonas();
         }
 
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public Persona Get(int id)
         {
             GestorPersonas gPersona = new GestorPersonas();
@@ -30,6 +31,7 @@ namespace AngularMVCProject.Controllers
         }
 
         // POST: api/Persona
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public Persona Post(Persona persona)
         {
             int id;
@@ -40,6 +42,7 @@ namespace AngularMVCProject.Controllers
         }
 
         // PUT: api/Persona
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void Put(Persona persona)
         {
             GestorPersonas gPersona = new GestorPersonas();
@@ -48,6 +51,7 @@ namespace AngularMVCProject.Controllers
         }
 
         // DELETE: api/Persona/5
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public void Delete(int id)
         {
             GestorPersonas gPersona = new GestorPersonas();

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Persona} from './models/persona.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,12 @@ import {Persona} from './models/persona.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Programa Clip';
   
+  title: "app";
+  
+  constructor() {}
+
+  logout(): void {
+    alert("logout - en construcción");
+  }
 }
