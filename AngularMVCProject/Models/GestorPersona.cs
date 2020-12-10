@@ -17,16 +17,23 @@ namespace AngularMVCProject.Models
             int id=0;
 
             using (SqlConnection conn = new SqlConnection(StrConn))
-            { 
-                conn.Open();
+            {
+                try
+                {
+                    conn.Open();
 
-                SqlCommand comm = conn.CreateCommand();
-                comm.CommandText = "insertar_persona";
-                comm.CommandType = System.Data.CommandType.StoredProcedure;
-                comm.Parameters.Add(new SqlParameter("@Nombre", nueva.Nombre));
-                comm.Parameters.Add(new SqlParameter("@Apellido", nueva.Apellido));
+                    SqlCommand comm = conn.CreateCommand();
+                    comm.CommandText = "pa_insertar_usuario";
+                    comm.CommandType = System.Data.CommandType.StoredProcedure;
+                    comm.Parameters.Add(new SqlParameter("@Nombre", nueva.Nombre));
+                    comm.Parameters.Add(new SqlParameter("@Apellido", nueva.Apellido));
 
-                id=Convert.ToInt32( comm.ExecuteScalar());
+                    id = Convert.ToInt32(comm.ExecuteScalar());
+                }
+                catch(System.InvalidOperationException e)
+                {
+                    Console.WriteLine(e);
+                }
             }
             return id;
         }
@@ -34,28 +41,31 @@ namespace AngularMVCProject.Models
         public List<Persona> ObtenerPersonas()
         {
             List<Persona> lista = new List<Persona>();
-            string StrConn = ConfigurationManager.ConnectionStrings["BDLocal"].ToString();
+            string strConn = "Server=AR-IT02462\\SQLEXPRESS01,1433;Database=dbHomeBank;User Id=mari;Password=Login1234;";
+        
 
-            using (SqlConnection conn = new SqlConnection(StrConn))
+            using (SqlConnection conn = new SqlConnection(strConn))
+
+
             {
-                conn.Open();
+                    conn.Open();
 
-                SqlCommand comm = conn.CreateCommand();
-                comm.CommandText = "obtener_personas";
-                comm.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlCommand comm = conn.CreateCommand();
+                    comm.CommandText = "pa_mostrar_clientes";
+                    comm.CommandType = System.Data.CommandType.StoredProcedure;
 
-                SqlDataReader dr = comm.ExecuteReader();
-                while (dr.Read())
-                {
-                    int id = dr.GetInt32(0);
-                    string nombre = dr.GetString(1).Trim();
-                    string apellido = dr.GetString(2).Trim();
+                    SqlDataReader dr = comm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        int id = dr.GetInt32(0);
+                        string nombre = dr.GetString(1).Trim();
+                        string apellido = dr.GetString(2).Trim();
 
-                    Persona p = new Persona(id, nombre, apellido);
-                    lista.Add(p);
-                }
+                        Persona p = new Persona(id, nombre, apellido);
+                        lista.Add(p);
+                    }
 
-                dr.Close();
+                    dr.Close();
             }
 
             return lista;

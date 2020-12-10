@@ -11,14 +11,15 @@ namespace AngularMVCProject.Models
     {
         public bool ValidarLogin(LoginRequest ploginRequest)
         {
-            string strConn = ConfigurationManager.ConnectionStrings["BDLocal"].ToString();
+            //string strConn = ConfigurationManager.ConnectionStrings["BDLocal"].ToString();
+            string strConn = "Server=AR-IT02462\\SQLEXPRESS01;Database=dbHomeBank;User Id=mari;Password=Login1234;";
             bool result = false;
 
             using (SqlConnection conn = new SqlConnection(strConn))
             {
                 conn.Open();
 
-                SqlCommand comm = new SqlCommand("obtener_login", conn);
+                SqlCommand comm = new SqlCommand("pa_obtener_login", conn);
                 comm.CommandType = System.Data.CommandType.StoredProcedure;
                 comm.Parameters.Add(new SqlParameter("@username", ploginRequest.Username));
                 comm.Parameters.Add(new SqlParameter("@password", ploginRequest.Password));
@@ -29,7 +30,7 @@ namespace AngularMVCProject.Models
                 {
                     result = true;
                 }
-                
+
             }
             return result;
 
